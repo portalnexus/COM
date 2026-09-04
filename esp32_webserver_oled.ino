@@ -17,7 +17,7 @@ const char* ssidAP = "ESP32";
 const char* passwordAP = "esp32esp"; 
 
 // Definição dos pinos que serão controlados
-const int ledEmbutido = LED_BUILTIN; // LED azul da própria placa
+const int ledEmbutido = 2; // LED azul da própria placa
 const int pinoExtra1 = 4;
 const int pinoExtra2 = 5;
 
