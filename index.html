@@ -3,70 +3,886 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clube de Matemática - SESI 342 Jardinópolis</title>
+    <meta name="description" content="Página oficial do Clube de Matemática da Escola SESI 342 de Jardinópolis. Desafios, curiosidades, olimpíadas e ferramentas interativas.">
+    <title>Clube de Matemática | SESI 342 Jardinópolis</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        :root {
+            --primary: #004b93;       /* Azul SESI clássico */
+            --primary-dark: #003366;
+            --accent: #e30613;        /* Vermelho SESI */
+            --accent-hover: #b8050f;
+            --gold: #f59e0b;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-            line-height: 1.6;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
         }
-        header {
-            background: #0056b3;
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* --- Barra de Navegação --- */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-brand i {
+            font-size: 1.6rem;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.8rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn-nav {
+            background: var(--accent);
+            color: #fff !important;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(227, 6, 19, 0.3);
+        }
+
+        .btn-nav:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
             color: #fff;
-            padding: 20px 0;
+            padding: 5rem 5% 6rem;
             text-align: center;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
         }
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
+
+        .hero::before {
+            content: "∑ ∫ π √ ∞ % Δ θ λ";
+            position: absolute;
+            top: 10%;
+            left: 5%;
+            right: 5%;
+            font-family: 'Fira Code', monospace;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.04);
+            letter-spacing: 20px;
+            pointer-events: none;
+            user-select: none;
         }
-        .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
-            padding: 20px;
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        .content {
-            background: #fff;
-            padding: 20px;
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            max-width: 750px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.85rem 2rem;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(227, 6, 19, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-outline:hover {
+            background: #fff;
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* --- Métricas Rápidas --- */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 1100px;
+            margin: -3rem auto 4rem;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1.8rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .stat-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* --- Estrutura de Seções --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header span {
+            color: var(--accent);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: var(--dark);
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        /* --- Pilares / Recursos --- */
+        .grid-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2.5rem 1.8rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border);
             text-align: center;
         }
-        footer {
-            text-align: center;
-            padding: 10px;
-            background: #333;
-            color: #fff;
-            position: fixed;
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: #e6f0fa;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 0.8rem;
+            font-size: 1.25rem;
+            color: var(--dark);
+        }
+
+        /* --- Área Interativa (Widgets) --- */
+        .interactive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .interactive-card {
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .interactive-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 0.8rem;
+        }
+
+        .interactive-card h3 i {
+            color: var(--primary);
+        }
+
+        /* Formulários dos widgets */
+        .form-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--text-main);
+        }
+
+        .form-control {
             width: 100%;
-            bottom: 0;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 75, 147, 0.15);
+        }
+
+        .result-box {
+            margin-top: 1.2rem;
+            padding: 1rem;
+            background: #f1f5f9;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: var(--dark);
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* --- Curiosidade Math Box --- */
+        .trivia-box {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+
+        /* --- Cronograma --- */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .schedule-table th, .schedule-table td {
+            padding: 1.2rem 1.5rem;
+            text-align: left;
+        }
+
+        .schedule-table th {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .schedule-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .schedule-table tr:hover {
+            background: #f1f5f9;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .tag-fundamental { background: #dbeafe; color: #1e40af; }
+        .tag-medio { background: #fee2e2; color: #991b1b; }
+        .tag-olimpiada { background: #fef3c7; color: #92400e; }
+
+        /* --- Rodapé --- */
+        footer {
+            background: var(--dark);
+            color: #cbd5e1;
+            padding: 4rem 5% 2rem;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-col h4 {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+
+        .footer-col p {
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .author-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .author-card strong {
+            color: #fff;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        /* --- Responsividade --- */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            .hero {
+                padding: 4rem 1.5rem 5rem;
+            }
+            .schedule-table th, .schedule-table td {
+                padding: 0.8rem;
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Clube de Matemática</h1>
-        <p>Escola SESI 342 - Jardinópolis</p>
+    <nav class="navbar">
+        <a href="#" class="nav-brand">
+            <i class="fa-solid fa-shapes"></i>
+            <span>Clube de Matemática <small style="font-size: 0.8rem; color: var(--text-muted); font-weight: 400;">SESI 342</small></span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#sobre"><i class="fa-solid fa-compass"></i> Sobre</a></li>
+            <li><a href="#atividades"><i class="fa-solid fa-chess"></i> Atividades</a></li>
+            <li><a href="#desafio"><i class="fa-solid fa-brain"></i> Desafio</a></li>
+            <li><a href="#ferramentas"><i class="fa-solid fa-calculator"></i> Ferramentas</a></li>
+            <li><a href="#cronograma"><i class="fa-solid fa-calendar-days"></i> Encontros</a></li>
+            <li><a href="#inscricao" class="btn-nav">Participar</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-badge">Inovação & Raciocínio Lógico</div>
+        <h1>Descubra o Poder dos Números</h1>
+        <p>O Clube de Matemática da Escola SESI 342 de Jardinópolis é o espaço ideal para explorar enigmas, dominar olimpíadas científicas e transformar a matemática em pura diversão.</p>
+        <div class="hero-buttons">
+            <a href="#desafio" class="btn btn-primary"><i class="fa-solid fa-fire"></i> Desafio do Dia</a>
+            <a href="#ferramentas" class="btn btn-outline"><i class="fa-solid fa-flask"></i> Laboratório Interativo</a>
+        </div>
     </header>
 
-    <div class="container">
-        <div class="content">
-            <h2>Bem-vindo ao nosso Clube!</h2>
-            <p>O Clube de Matemática da escola SESI 342 de Jardinópolis foi criado para explorar o mundo dos números de forma divertida e desafiadora.</p>
-            <p>Venha participar, resolver problemas, descobrir curiosidades matemáticas e aprender coisas novas!</p>
-            <br>
-            <p><strong>Desenvolvido por:</strong> João Pedro Melloni Tardif Germano</p>
+    <section class="stats-container">
+        <div class="stat-card">
+            <i class="fa-solid fa-users"></i>
+            <h3>+50</h3>
+            <p>Alunos Conectados</p>
         </div>
-    </div>
+        <div class="stat-card">
+            <i class="fa-solid fa-medal"></i>
+            <h3>OBMEP</h3>
+            <p>Foco e Treinamento</p>
+        </div>
+        <div class="stat-card">
+            <i class="fa-solid fa-puzzle-piece"></i>
+            <h3>100+</h3>
+            <p>Problemas e Desafios</p>
+        </div>
+        <div class="stat-card">
+            <i class="fa-solid fa-lightbulb"></i>
+            <h3>100%</h3>
+            <p>Prático e Divertido</p>
+        </div>
+    </section>
+
+    <main class="container" id="sobre">
+        <div class="section-header">
+            <span>Metodologia Ativa</span>
+            <h2>O Que Fazemos no Nosso Clube?</h2>
+        </div>
+
+        <div class="grid-features" id="atividades">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-trophy"></i></div>
+                <h3>Olimpíadas Científicas</h3>
+                <p>Preparação estruturada para a OBMEP, Canguru de Matemática e OBFEP com simulados e resolução de provas anteriores.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-cubes"></i></div>
+                <h3>Jogos de Raciocínio</h3>
+                <p>Xadrez, Cubo Mágico, Torre de Hanói, Tangram e jogos de estratégia que refinam o raciocínio dedutivo e a visão espacial.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                <h3>Matemática & Tecnologia</h3>
+                <p>Aplicação da matemática no mundo moderno: lógica computacional, criptografia, geometria dinâmica com GeoGebra e dados.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-infinity"></i></div>
+                <h3>História & Curiosidades</h3>
+                <p>Descubra as mentes brilhantes por trás dos teoremas, de Pitágoras e Ada Lovelace aos segredos da Proporção Áurea.</p>
+            </div>
+        </div>
+    </main>
+
+    <section class="container" id="desafio">
+        <div class="section-header">
+            <span>Mão na Massa</span>
+            <h2>Laboratório e Desafios Interativos</h2>
+        </div>
+
+        <div class="interactive-grid">
+            <div class="interactive-card">
+                <div>
+                    <h3><i class="fa-solid fa-brain"></i> Enigma do Dia</h3>
+                    <p id="question-text" style="font-weight: 600; margin-bottom: 1rem;">Carregando desafio...</p>
+                    <div class="form-group">
+                        <input type="number" id="quiz-input" class="form-control" placeholder="Digite sua resposta">
+                    </div>
+                    <button onclick="checkAnswer()" class="btn btn-primary" style="width: 100%;">
+                        <i class="fa-solid fa-check"></i> Validar Resposta
+                    </button>
+                </div>
+                <div>
+                    <div id="quiz-result" class="result-box">Aguardando resposta...</div>
+                    <button onclick="loadNewQuestion()" class="btn btn-outline" style="width: 100%; margin-top: 0.5rem; color: var(--primary); border-color: var(--border);">
+                        <i class="fa-solid fa-shuffle"></i> Outro Problema
+                    </button>
+                </div>
+            </div>
+
+            <div class="interactive-card" id="ferramentas">
+                <div>
+                    <h3><i class="fa-solid fa-square-root-variable"></i> Calculadora de Bhaskara</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Resolva equações do tipo: ax² + bx + c = 0</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+                        <div class="form-group">
+                            <label>Valor a:</label>
+                            <input type="number" id="val-a" class="form-control" placeholder="a" value="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Valor b:</label>
+                            <input type="number" id="val-b" class="form-control" placeholder="b" value="-5">
+                        </div>
+                        <div class="form-group">
+                            <label>Valor c:</label>
+                            <input type="number" id="val-c" class="form-control" placeholder="c" value="6">
+                        </div>
+                    </div>
+                    <button onclick="solveBhaskara()" class="btn btn-primary" style="width: 100%;">
+                        <i class="fa-solid fa-equals"></i> Calcular Raízes
+                    </button>
+                </div>
+                <div id="bhaskara-result" class="result-box">x₁ = 3.00 e x₂ = 2.00</div>
+            </div>
+
+            <div class="interactive-card">
+                <div>
+                    <h3><i class="fa-solid fa-atom"></i> Fatos Fascinantes</h3>
+                    <div class="trivia-box" id="trivia-display">
+                        "O número de ouro (1,618...) aparece no crescimento das conchas, nas pétalas dos girassóis e até na estrutura das galáxias."
+                    </div>
+                </div>
+                <button onclick="nextTrivia()" class="btn btn-primary" style="width: 100%;">
+                    <i class="fa-solid fa-lightbulb"></i> Nova Curiosidade
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="cronograma">
+        <div class="section-header">
+            <span>Agenda</span>
+            <h2>Nossos Encontros Semanais</h2>
+        </div>
+
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th>Turma / Nível</th>
+                    <th>Dia da Semana</th>
+                    <th>Horário</th>
+                    <th>Local</th>
+                    <th>Categoria</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Iniciação Matemática</strong> (6º e 7º anos)</td>
+                    <td>Terças-feiras</td>
+                    <td>14h00 - 15h30</td>
+                    <td>Laboratório de Ciências</td>
+                    <td><span class="tag tag-fundamental">Fundamental II</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Treinamento OBMEP</strong> (8º e 9º anos)</td>
+                    <td>Quartas-feiras</td>
+                    <td>14h00 - 16h00</td>
+                    <td>Sala de Estudos SESI 342</td>
+                    <td><span class="tag tag-olimpiada">Avançado</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Matemática Aplicada & Ensino Médio</strong></td>
+                    <td>Quintas-feiras</td>
+                    <td>15h45 - 17h15</td>
+                    <td>Espaço Maker</td>
+                    <td><span class="tag tag-medio">Ensino Médio</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="container" id="inscricao">
+        <div class="interactive-card" style="max-width: 650px; margin: 0 auto; text-align: center;">
+            <div class="section-header" style="margin-bottom: 1.5rem;">
+                <span>Faça Parte</span>
+                <h2 style="font-size: 1.8rem;">Garanta Sua Vaga no Clube</h2>
+            </div>
+            <form onsubmit="handleSubscription(event)">
+                <div class="form-group">
+                    <label>Nome Completo do Aluno:</label>
+                    <input type="text" class="form-control" required placeholder="Ex: Maria Silva">
+                </div>
+                <div class="form-group">
+                    <label>Ano / Série escolar:</label>
+                    <select class="form-control" required>
+                        <option value="">Selecione sua série...</option>
+                        <option>6º Ano Fundamental</option>
+                        <option>7º Ano Fundamental</option>
+                        <option>8º Ano Fundamental</option>
+                        <option>9º Ano Fundamental</option>
+                        <option>1ª Série Ensino Médio</option>
+                        <option>2ª Série Ensino Médio</option>
+                        <option>3ª Série Ensino Médio</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>E-mail ou Contato do Responsável:</label>
+                    <input type="email" class="form-control" required placeholder="contato@exemplo.com">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                    <i class="fa-solid fa-paper-plane"></i> Confirmar Pré-Inscrição
+                </button>
+            </form>
+            <div id="sub-feedback" style="margin-top: 1rem; font-weight: 600;"></div>
+        </div>
+    </section>
 
     <footer>
-        <p>&copy; Clube de Matemática SESI 342 Jardinópolis. Desenvolvido por João Pedro Melloni Tardif Germano.</p>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>Clube de Matemática</h4>
+                <p>Incentivando o raciocínio analítico, a criatividade e a paixão pela ciência através de experiências práticas de aprendizagem.</p>
+                <p><i class="fa-solid fa-location-dot"></i> Escola SESI 342 - Jardinópolis / SP</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Links Rápidos</h4>
+                <p><a href="#sobre" style="color: #cbd5e1; text-decoration: none;">Sobre o Projeto</a></p>
+                <p><a href="#atividades" style="color: #cbd5e1; text-decoration: none;">Atividades e Olimpíadas</a></p>
+                <p><a href="#ferramentas" style="color: #cbd5e1; text-decoration: none;">Resolvedores & Ferramentas</a></p>
+                <p><a href="#cronograma" style="color: #cbd5e1; text-decoration: none;">Horários das Aulas</a></p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Idealização e Desenvolvimento</h4>
+                <div class="author-card">
+                    <strong><i class="fa-solid fa-code"></i> Desenvolvido por:</strong>
+                    <p style="margin: 0; color: #f8fafc; font-weight: 600;">João Pedro Melloni Tardif Germano</p>
+                    <small style="color: #94a3b8;">Estudante & Desenvolvedor Web</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; <span id="current-year"></span> Clube de Matemática - Escola SESI 342 Jardinópolis. Todos os direitos reservados.</p>
+        </div>
     </footer>
 
+    <script>
+        // Atualiza ano no rodapé
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // 1. Banco de Desafios Matemáticos
+        const questions = [
+            { q: "Qual é o próximo termo da sequência: 2, 4, 8, 16, ___ ?", a: 32 },
+            { q: "Se 3 gatos comem 3 ratos em 3 minutos, quantos minutos 100 gatos levam para comer 100 ratos?", a: 3 },
+            { q: "Quanto vale a raiz quadrada de 144 somada a 13?", a: 25 },
+            { q: "Um triângulo possui lados medindo 3 cm e 4 cm. Qual a hipotenusa desse triângulo retângulo?", a: 5 },
+            { q: "Quanto é 5! (fatorial de 5)?", a: 120 }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function loadQuestion(index) {
+            currentQuestionIndex = index;
+            document.getElementById('question-text').textContent = questions[index].q;
+            document.getElementById('quiz-input').value = "";
+            const resultBox = document.getElementById('quiz-result');
+            resultBox.textContent = "Aguardando sua resposta...";
+            resultBox.style.color = "var(--dark)";
+            resultBox.style.background = "#f1f5f9";
+        }
+
+        function loadNewQuestion() {
+            let nextIndex = (currentQuestionIndex + 1) % questions.length;
+            loadQuestion(nextIndex);
+        }
+
+        function checkAnswer() {
+            const userVal = parseFloat(document.getElementById('quiz-input').value);
+            const resultBox = document.getElementById('quiz-result');
+
+            if (isNaN(userVal)) {
+                resultBox.textContent = "Por favor, digite um número!";
+                resultBox.style.color = "#b91c1c";
+                return;
+            }
+
+            if (userVal === questions[currentQuestionIndex].a) {
+                resultBox.textContent = "🎉 Correto! Excelente raciocínio!";
+                resultBox.style.color = "#15803d";
+                resultBox.style.background = "#dcfce7";
+            } else {
+                resultBox.textContent = "❌ Tente novamente! Revise seus cálculos.";
+                resultBox.style.color = "#b91c1c";
+                resultBox.style.background = "#fee2e2";
+            }
+        }
+
+        // 2. Resolvedor de Bhaskara
+        function solveBhaskara() {
+            const a = parseFloat(document.getElementById('val-a').value);
+            const b = parseFloat(document.getElementById('val-b').value);
+            const c = parseFloat(document.getElementById('val-c').value);
+            const resultBox = document.getElementById('bhaskara-result');
+
+            if (isNaN(a) || isNaN(b) || isNaN(c)) {
+                resultBox.textContent = "Preencha todos os coeficientes!";
+                return;
+            }
+
+            if (a === 0) {
+                resultBox.textContent = "O coeficiente 'a' não pode ser 0 em equação de 2º grau.";
+                return;
+            }
+
+            const delta = (b * b) - (4 * a * c);
+
+            if (delta < 0) {
+                resultBox.textContent = `Δ = ${delta.toFixed(2)} (Não possui raízes reais)`;
+            } else if (delta === 0) {
+                const x = -b / (2 * a);
+                resultBox.textContent = `Δ = 0 | Raiz única: x = ${x.toFixed(2)}`;
+            } else {
+                const x1 = (-b + Math.sqrt(delta)) / (2 * a);
+                const x2 = (-b - Math.sqrt(delta)) / (2 * a);
+                resultBox.textContent = `Δ = ${delta.toFixed(2)} | x₁ = ${x1.toFixed(2)} e x₂ = ${x2.toFixed(2)}`;
+            }
+        }
+
+        // 3. Fatos e Curiosidades
+        const curiosities = [
+            "O número zero (0) foi desenvolvido de forma independente na Índia e pelos Maias como conceito matemático de valor nulo posicional.",
+            "Um 'Googol' é o número 1 seguido de 100 zeros. Foi ele que inspirou o nome do mecanismo de busca Google!",
+            "O Teorema de Pitágoras possui mais de 370 demonstrações geométricas conhecidas, incluindo uma criada pelo presidente americano James A. Garfield.",
+            "O número Pi (π) possui infinitas casas decimais e não possui padrão de repetição (é um número irracional transcendental).",
+            "Se você dobrar uma folha de papel sulfite ao meio 42 vezes, a espessura acumulada alcançaria a distância da Terra até a Lua!"
+        ];
+
+        let triviaIndex = 0;
+        function nextTrivia() {
+            triviaIndex = (triviaIndex + 1) % curiosities.length;
+            const display = document.getElementById('trivia-display');
+            display.style.opacity = 0;
+            setTimeout(() => {
+                display.textContent = `"${curiosities[triviaIndex]}"`;
+                display.style.opacity = 1;
+            }, 200);
+        }
+
+        // 4. Tratamento do formulário de inscrição
+        function handleSubscription(e) {
+            e.preventDefault();
+            const feedback = document.getElementById('sub-feedback');
+            feedback.innerHTML = "<span style='color: #15803d;'><i class='fa-solid fa-circle-check'></i> Inscrição registrada com sucesso! Bem-vindo(a) ao Clube SESI 342!</span>";
+            e.target.reset();
+        }
+
+        // Inicialização
+        loadQuestion(0);
+    </script>
 </body>
 </html>
